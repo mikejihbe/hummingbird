@@ -50,6 +50,7 @@ Hummingbird.Base.prototype = {
   },
 
   setFilter: function() {
+    // TODO: extend this (and extract) to support multiple filters
     var obj = this.options.data;
 
     this.filter = [];

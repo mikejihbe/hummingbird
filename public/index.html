@@ -46,9 +46,21 @@
 
   <div style="clear: both;"></div>
 
-  <div class="hummingbird_graph" id="cart_adds">
+  <div class="hummingbird_graph" id="page-loads">
 
-    <h2 class="graph_title">Cart Traffic:</h2>
+    <h2 class="graph_title">Page Loads:</h2>
+
+    <div class="axis_left"></div>
+    <div class="graph"></div>
+    <div class="axis_right"></div>
+
+  </div>
+
+  <div style="clear: both;"></div>
+  
+  <div class="hummingbird_graph" id="feed-loads">
+
+    <h2 class="graph_title">Feed Loads:</h2>
 
     <div class="axis_left"></div>
     <div class="graph"></div>
@@ -75,11 +87,17 @@
                                    data: { total: true }
                                  });
 
-      $("#cart_adds").hummingbirdGraph(hummingbirdSocket,
+      $("#page-loads").hummingbirdGraph(hummingbirdSocket,
                                        {
-                                         data: { cartAdds: true },
+                                         data: { "page-load": true },
                                          graphHeight: 100
                                        });
+                                       
+      $("#feed-loads").hummingbirdGraph(hummingbirdSocket,
+          {
+            data: { "feed-load": true },
+            graphHeight: 100
+          });
 
       $("#total h2.graph_title span.value").hummingbirdCount(hummingbirdSocket,
                                                              {
@@ -89,10 +107,11 @@
 
       $("#map_container").hummingbirdMap(hummingbirdSocket, { data: { location: true } });
 
+      // Logs per-minute averages
       new Hummingbird.Logger(window,
                              hummingbirdSocket,
                              {
-                               data: { cartAdds: true},
+                               data: { cart_adds: true},
                                every: 20
                              });
 
@@ -101,13 +120,6 @@
 
         var img = document.createElement('img');
         img.src = "http://localhost:8000/tracking_pixel.gif?f=" + Math.ceil(Math.random() * 1000000)
-      });
-
-      $("#test_cart").click(function(e) {
-        e.preventDefault();
-
-        var img = document.createElement('img');
-        img.src = "http://localhost:8000/tracking_pixel.gif?events=scAdd&f=" + Math.ceil(Math.random() * 1000000)
       });
     });
   </script>
